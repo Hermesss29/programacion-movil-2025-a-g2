@@ -1,0 +1,39 @@
+@startuml 
+entity Usuarios {
+    +id_usuario: SERIAL [PK]
+    nombre: VARCHAR(100)
+    rol: VARCHAR(50)
+    email: VARCHAR(100) [UNIQUE]
+}
+
+entity Vuelos {
+    +id_vuelo: SERIAL [PK]
+    origen: VARCHAR(50)
+    destino: VARCHAR(50)
+    estado: VARCHAR(20)
+}
+
+entity Checkin {
+    +id_checkin: SERIAL [PK]
+    id_usuario: INT [FK]
+    id_vuelo: INT [FK]
+    estado_checkin: VARCHAR(20)
+}
+
+entity Notificaciones {
+    +id_notificacion: SERIAL [PK]
+    id_usuario: INT [FK]
+    mensaje: TEXT
+}
+
+entity Servicios {
+    +id_servicio: SERIAL [PK]
+    tipo: VARCHAR(50)
+    disponibilidad: VARCHAR(20)
+}
+
+Usuarios ||--o{ Checkin : "1:N"
+Usuarios ||--o{ Notificaciones : "1:N"
+Vuelos ||--o{ Checkin : "1:N"
+
+@enduml
